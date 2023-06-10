@@ -6,17 +6,13 @@ import { InputText } from "primereact/inputtext";
 import { OrderList } from "primereact/orderlist";
 import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [todos, addTodo] = useState([]);
-
-  useEffect(() => {
-    console.log(todos);
-  }, [todos]);
-
-  const itemTemplate = (item, i) => {
-    return (
-      <div className="flex  justify-content-between p-1 align-items-center gap-8">
-        <span className="font-bold text-900">{item}</span>
+const itemTemplate = (item, i) => {
+  const [text, setText] = useState(item)
+  const [a, setA] = useState(true)
+  console.log(a);
+  return (
+    <div className="flex  justify-content-between p-1 align-items-center gap-8">
+      {a ? <><span className="font-bold text-900">{text}</span>
         <Button
           style={{ background: "#212121" }}
           size="small"
@@ -28,9 +24,31 @@ export default function Home() {
             addTodo([...todos]);
           }}
         />
-      </div>
-    );
-  };
+
+        <Button
+          style={{ background: "#212121" }}
+          size="small"
+          icon={<i className="pi pi-pencil"></i>}
+          onClick={() => {
+            setA(false)
+          }}
+        />
+      </> : <><InputText value={todos} onChange={(e) => addTodo(e.target.value)} />
+      </>}
+
+    </div>
+  );
+};
+
+
+
+export default function Home() {
+  const [todos, addTodo] = useState([]);
+
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
+
 
   return (
     <>
@@ -45,7 +63,7 @@ export default function Home() {
           <Card
             style={{
               background: "#f0fdfa",
-              color: "#212121", height:"80vh",
+              color: "#212121", height: "80vh",
             }}
             className="w-12 text-center md:w-6"
             title="toDoListApp"
@@ -64,12 +82,15 @@ export default function Home() {
 
             <div className="card flex justify-content-center">
               {todos.length > 0 ? (
+
+
+
                 <OrderList
                   value={todos}
                   onChange={(e) => addTodo(e.value)}
                   itemTemplate={itemTemplate}
                   dragdrop
-                  style={{width:"80vw"}}
+                  style={{ width: "80vw" }}
                 />
               ) : (
                 <div>It seems like a bit quiet here 🥱</div>
