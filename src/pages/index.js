@@ -19,8 +19,8 @@ export default function Home() {
         <span className="font-bold text-900">{item}</span>
         <Button
           style={{ background: "#212121" }}
-          label="delete"
           size="small"
+          icon={<i className="pi pi-trash"></i>}
           onClick={() => {
             let i = todos.findIndex((x) => x === item);
             todos.splice(i, 1);
@@ -45,7 +45,7 @@ export default function Home() {
           <Card
             style={{
               background: "#f0fdfa",
-              color: "#212121",
+              color: "#212121", height:"80vh",
             }}
             className="w-12 text-center md:w-6"
             title="toDoListApp"
@@ -54,7 +54,7 @@ export default function Home() {
               style={{ background: "#616161", color: "#FFFFFF" }}
               className="w-full"
               onKeyDown={(e) => {
-                if (e.keyCode === 13) {
+                if (e.key === "Enter") {
                   addTodo([...todos, e.target.value]);
                   e.target.value = "";
                 }
@@ -69,6 +69,7 @@ export default function Home() {
                   onChange={(e) => addTodo(e.value)}
                   itemTemplate={itemTemplate}
                   dragdrop
+                  style={{width:"80vw"}}
                 />
               ) : (
                 <div>It seems like a bit quiet here 🥱</div>
