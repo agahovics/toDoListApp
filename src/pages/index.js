@@ -34,11 +34,11 @@ export default function Home() {
       </Head>
       <main>
         <Toast ref={toastRef} position="bottom-right" />
-        <div className="flex justify-content-center align-items-center h-screen w-full ">
+        <div className="flex justify-content-center align-items-center h-screen w-full">
           <Card
             style={{
               background: "#f0fdfa",
-              color: "#212121", height: "80vh",
+              color: "#212121", height: "80vh",overflow:"hidden"
             }}
             className="w-12 text-center md:w-6"
             title="toDoListApp"
