@@ -5,7 +5,8 @@ import Head from "next/head";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Toast } from "primereact/toast";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 export default function Home() {
   const toastRef = useRef();
@@ -13,11 +14,13 @@ export default function Home() {
   const [isEdit, setEditMode] = useState(false);
   const [index, setIndex] = useState(undefined);
   const [value, setValue] = useState("");
+  const [todosArray, setTodosArray] = useLocalStorage("todos", []);
 
   // This function adds a new item and create a toasts if the value is not empty.
   const add = (v) => {
     if (v !== "") {
       addTodo([...todos, v]);
+      setTodosArray([...todos, v]);
       setValue("");
       toastRef.current.show({
         severity: "info",
