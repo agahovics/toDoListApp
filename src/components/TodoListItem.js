@@ -21,6 +21,7 @@ export const TodoListItem = (props) => {
         onChange={(e) => {
           todos[i] = e.target.value;
           addTodo(todos);
+
         }}
       />
       <Button
@@ -29,6 +30,8 @@ export const TodoListItem = (props) => {
         icon={<i className="pi pi-pencil"></i>}
         onClick={() => {
           setEditMode(false);
+          addTodo(todos);
+
         }}
       />
     </div>
@@ -44,6 +47,7 @@ export const TodoListItem = (props) => {
             let i = todos.findIndex((x) => x === item);
             todos.splice(i, 1);
             addTodo([...todos]);
+            
             toastRef.current.show({
               severity: "success",
               summary: "Completed✅",

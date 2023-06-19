@@ -6,21 +6,19 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from 'primereact/hooks';
 
 export default function Home() {
   const toastRef = useRef();
-  const [todos, addTodo] = useState([]);
+  const [todos, setTodos] = useLocalStorage([]);
   const [isEdit, setEditMode] = useState(false);
   const [index, setIndex] = useState(undefined);
   const [value, setValue] = useState("");
-  const [todosArray, setTodosArray] = useLocalStorage("todos", []);
 
   // This function adds a new item and create a toasts if the value is not empty.
   const add = (v) => {
     if (v !== "") {
-      addTodo([...todos, v]);
-      setTodosArray([...todos, v]);
+      setTodos([...todos, v]);
       setValue("");
       toastRef.current.show({
         severity: "info",
@@ -61,7 +59,7 @@ export default function Home() {
                   setEditMode={setEditMode}
                   setIndex={setIndex}
                   index={index}
-                  addTodo={addTodo}
+                  addTodo={setTodos}
                   toastRef={toastRef}
                 />
               ) : (
